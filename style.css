@@ -1,0 +1,232 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #fdf6ec;
+  --brown: #7b3f00;
+  --dark-brown: #3e1a00;
+  --text: #2c1a0e;
+  --muted: #8b6f5e;
+  --card-bg: #fff;
+  --section-alt: #fdf0e0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', Georgia, serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(30,10,0,0.62), rgba(30,10,0,0.62)),
+    url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1400&q=80') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 60px 24px;
+}
+
+.hero-content { max-width: 700px; }
+
+.hero-tagline {
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #f8c56a;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 86px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 36px;
+}
+
+.btn-hero {
+  display: inline-block;
+  background: #f8c56a;
+  color: var(--dark-brown);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-hero:hover { background: #f39c12; transform: translateY(-2px); }
+
+/* ── Intro ── */
+.intro {
+  padding: 80px 24px;
+  text-align: center;
+  background: var(--section-alt);
+}
+.intro h2 {
+  font-size: 36px;
+  color: var(--brown);
+  margin-bottom: 16px;
+}
+.intro p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+/* ── Cakes Grid ── */
+.cakes-section { padding: 80px 24px; background: var(--cream); }
+
+.section-title {
+  font-size: 36px;
+  color: var(--brown);
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #f8c56a;
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.cake-card {
+  background: var(--card-bg);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(60,20,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cake-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(60,20,0,0.15);
+}
+
+.cake-img {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+}
+
+.cake-body { padding: 22px 24px 26px; }
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brown);
+  background: #fdf0e0;
+  padding: 4px 10px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+.cake-body h3 {
+  font-size: 22px;
+  color: var(--dark-brown);
+  margin-bottom: 10px;
+}
+
+.cake-body p {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.flavor-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.flavor-tags li {
+  font-size: 12px;
+  background: #fdf6ec;
+  border: 1px solid #f0d9b5;
+  color: var(--brown);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* ── Facts ── */
+.facts-section {
+  padding: 80px 24px;
+  background: var(--dark-brown);
+  color: #fff;
+}
+.facts-section .section-title { color: #f8c56a; }
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.fact-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.fact-card:hover { background: rgba(255,255,255,0.12); }
+
+.fact-icon { font-size: 40px; display: block; margin-bottom: 14px; }
+
+.fact-card h4 {
+  font-size: 17px;
+  color: #f8c56a;
+  margin-bottom: 10px;
+}
+.fact-card p { font-size: 14px; color: rgba(255,255,255,0.75); }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  background: #2c1a0e;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 40px; }
+  .cake-grid { grid-template-columns: 1fr; }
+}
