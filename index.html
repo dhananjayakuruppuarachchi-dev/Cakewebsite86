@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Variety of Cakes</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -255,13 +256,13 @@
     <div class="container">
       <h2 class="section-title" style="color:#f8c56a;">Order a Cake</h2>
       <p class="contact-sub">Have a celebration coming up? Get in touch and we'll bake something magical for you.</p>
-      <form class="contact-form" onsubmit="handleOrder(event)">
+      <form id="order-form" class="contact-form" onsubmit="handleOrder(event)">
         <div class="form-row">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Email Address" required />
+          <input id="field-name"  type="text"  name="from_name"       placeholder="Your Name"     required />
+          <input id="field-email" type="email" name="from_email"      placeholder="Email Address" required />
         </div>
         <div class="form-row">
-          <select required>
+          <select id="field-cake" name="cake_type" required>
             <option value="" disabled selected>Choose a Cake</option>
             <option>Chocolate Cake</option>
             <option>Red Velvet Cake</option>
@@ -276,13 +277,16 @@
             <option>Blueberry Chiffon Cake</option>
             <option>Rainbow Layer Cake</option>
           </select>
-          <input type="date" required />
+          <input id="field-date" type="date" name="delivery_date" required />
         </div>
-        <textarea placeholder="Any special requests or message..." rows="4"></textarea>
-        <button type="submit" class="btn-submit">Send Order Request</button>
+        <textarea id="field-message" name="message" placeholder="Any special requests or message..." rows="4"></textarea>
+        <button type="submit" class="btn-submit" id="submit-btn">Send Order Request</button>
       </form>
       <div id="order-success" class="order-success hidden">
-        🎉 Thank you! Your order request has been received. We'll be in touch soon.
+        🎉 Thank you! Your order request has been sent to us. We'll be in touch soon.
+      </div>
+      <div id="order-error" class="order-error hidden">
+        ❌ Something went wrong. Please try again or email us directly at dhananjaya.kuruppuarachchi@gmail.com
       </div>
     </div>
   </section>
@@ -334,10 +338,49 @@
       });
     });
 
-    function handleOrder(e) {
+    // ── EmailJS configuration ──────────────────────────────────────
+    // After setting up EmailJS (see README instructions below), replace
+    // the three placeholder strings with your real IDs from emailjs.com
+    const EMAILJS_PUBLIC_KEY  = "dhananjaya.kuruppuarachchi@gmail.com';   //  > API Keys
+    const EMAILJS_SERVICE_ID  = 'Gmail.com';   // Email Services tab
+    const EMAILJS_TEMPLATE_ID = 'emailjs.send';  // Email Templates tab
+
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    async function handleOrder(e) {
       e.preventDefault();
-      e.target.classList.add('hidden');
-      document.getElementById('order-success').classList.remove('hidden');
+
+      const submitBtn = document.getElementById('submit-btn');
+      const form      = document.getElementById('order-form');
+      const successEl = document.getElementById('order-success');
+      const errorEl   = document.getElementById('order-error');
+
+      // Collect form values into a template params object.
+      // Variable names must match the {{variable}} placeholders in your EmailJS template.
+      const templateParams = {
+        from_name:      document.getElementById('field-name').value.trim(),
+        from_email:     document.getElementById('field-email').value.trim(),
+        cake_type:      document.getElementById('field-cake').value,
+        delivery_date:  document.getElementById('field-date').value,
+        message:        document.getElementById('field-message').value.trim() || '(no special requests)',
+        to_email:       'dhananjaya.kuruppuarachchi@gmail.com',
+      };
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      errorEl.classList.add('hidden');
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        form.classList.add('hidden');
+        successEl.classList.remove('hidden');
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        errorEl.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Order Request';
+      }
     }
   </script>
 </body>

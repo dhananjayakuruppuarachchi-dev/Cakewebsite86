@@ -367,6 +367,18 @@ footer {
 }
 .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
 
+.order-error {
+  max-width: 680px;
+  margin: 16px auto 0;
+  background: rgba(231,76,60,0.1);
+  border: 1px solid #e74c3c;
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: center;
+  color: #fc8181;
+  font-size: 15px;
+}
+
 .order-success {
   max-width: 680px;
   margin: 0 auto;
